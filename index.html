@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Things That I Use | Jim</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- 1. VARIABLES --- */
+        :root {
+            /* Cute Pastel Gradients */
+            --bg-gradient: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            --glass-bg: rgba(255, 255, 255, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+            --text-main: #5d5d81;
+            
+            /* Blobs colors */
+            --blob-1: #ffb7b2;
+            --blob-2: #a8e6cf;
+            --blob-3: #ffdac1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- 2. ANIMATED BACKGROUND --- */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(50px);
+            z-index: -1;
+            opacity: 0.9;
+            animation: float 12s infinite ease-in-out;
+        }
+        .blob-1 { top: -5%; left: -5%; width: 400px; height: 400px; background: var(--blob-1); animation-delay: 0s; }
+        .blob-2 { bottom: 10%; right: -5%; width: 350px; height: 350px; background: var(--blob-2); animation-delay: 3s; }
+        .blob-3 { top: 40%; left: 30%; width: 250px; height: 250px; background: var(--blob-3); animation-delay: 6s; }
+
+        /* --- 3. GLASS UI --- */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-radius: 30px;
+            border: 2px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- 4. HEADER --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .lang-switch {
+            cursor: pointer;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            background: rgba(255,255,255,0.8);
+            color: var(--text-main);
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .lang-switch:hover {
+            transform: scale(1.1);
+        }
+
+        .lang-switch:active {
+            transform: scale(0.95);
+        }
+
+        /* --- 5. INTRO --- */
+        .intro-card {
+            padding: 40px 20px;
+            text-align: center;
+            margin-bottom: 50px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .avatar {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: #fff;
+            margin: 0 auto 20px;
+            border: 5px solid rgba(255,255,255,0.8);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .avatar:hover {
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .intro-text {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 600;
+        }
+
+        /* --- 6. SECTION TITLES --- */
+        h2 {
+            text-align: center;
+            margin: 50px 0 30px;
+            font-size: 1.6rem;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* --- 7. GRID & CARDS --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+        }
+
+        .item-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 25px 15px;
+            cursor: pointer;
+            text-decoration: none; /* For the anchor tag */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .item-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #fff;
+        }
+
+        .item-card:active {
+            transform: scale(0.98);
+        }
+
+        /* The Cartoon/Icon Style */
+        .item-emoji {
+            font-size: 4.5rem; /* Big Emoji */
+            margin-bottom: 10px;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.15));
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* App Logos */
+        .app-logo {
+            width: 70px;
+            height: 70px;
+            border-radius: 18px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .item-card:hover .item-emoji, 
+        .item-card:hover .app-logo {
+            transform: scale(1.2) rotate(-5deg);
+        }
+
+        .item-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-align: center;
+        }
+
+        /* External Link Indicator (Subtle) */
+        .link-hint {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 0.8rem;
+        }
+        .item-card:hover .link-hint {
+            opacity: 0.6;
+        }
+
+        /* --- 8. FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 60px 0 30px;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* --- 9. ANIMATIONS --- */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .animate-pop {
+            opacity: 0;
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div class="container">
+        
+        <header>
+            <h1>Things I Use 🚀</h1>
+            <div class="lang-switch" onclick="toggleLanguage()">
+                🇺🇸 / 🇹🇼
+            </div>
+        </header>
+
+        <section class="glass-panel intro-card">
+            <div class="avatar">
+                <img src="https://api.dicebear.com/9.x/adventurer/svg?seed=Brian&backgroundColor=b6e3f4" alt="Jim's Avatar">
+            </div>
+            <p class="intro-text" id="intro-text">
+                Hi guys :) My name is Jim, I’m 13 years old. These are the cool things I use every day. Click them to see more!
+            </p>
+        </section>
+
+        <h2 id="header-hardware">Hardware / Devices</h2>
+        <div class="grid" id="hardware-grid">
+            </div>
+
+        <h2 id="header-apps">My Favorite Apps</h2>
+        <div class="grid" id="apps-grid">
+            </div>
+
+        <footer>
+            <p>© 2026 Jim's List. Stay creative! ✨</p>
+        </footer>
+
+    </div>
+
+    <script>
+        // --- DATA (Cartoons/Emojis + Official Links) ---
+        
+        const hardwareData = [
+            { name: "Sony WH-520", icon: "🎧", link: "https://www.sony.com/headphones/wh-ch520" },
+            { name: "iPad Pro", icon: "✏️", link: "https://www.apple.com/ipad-pro/" },
+            { name: "Apple Watch SE", icon: "⌚", link: "https://www.apple.com/apple-watch-se/" },
+            { name: "Google Nest Hub", icon: "🖥️", link: "https://store.google.com/product/nest_hub_2nd_gen" },
+            { name: "Google Nest Mini", icon: "🔊", link: "https://store.google.com/product/google_nest_mini" },
+            { name: "Tapo Light Bulb", icon: "💡", link: "https://www.tp-link.com/home-networking/smart-bulb/" },
+            { name: "Tapo Smart Plug", icon: "🔌", link: "https://www.tp-link.com/home-networking/smart-plug/" },
+            { name: "Chromecast", icon: "📺", link: "https://store.google.com/product/chromecast_google_tv" },
+            { name: "Meta Quest 3S", icon: "🥽", link: "https://www.meta.com/quest/quest-3/" },
+            { name: "iPhone 14", icon: "📱", link: "https://www.apple.com/iphone/" }
+        ];
+
+        const appsData = [
+            { name: "Spotify", img: "https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg", link: "https://open.spotify.com" },
+            { name: "Instagram", img: "https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg", link: "https://www.instagram.com/jimwu0131" },
+            { name: "Pinterest", img: "https://upload.wikimedia.org/wikipedia/commons/0/08/Pinterest-logo.png", link: "https://www.pinterest.com" },
+            { name: "Facebook", img: "https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg", link: "https://www.facebook.com" },
+            { name: "Threads", img: "https://upload.wikimedia.org/wikipedia/commons/c/c8/Threads_logo.svg", link: "https://www.threads.net" }, 
+            { name: "Gemini", img: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg", link: "https://gemini.google.com" },
+            { name: "ChatGPT", img: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg", link: "https://chat.openai.com" },
+            { name: "Perplexity", img: "https://upload.wikimedia.org/wikipedia/commons/1/14/Perplexity_AI_logo.svg", link: "https://www.perplexity.ai" },
+            { name: "Notion", img: "https://upload.wikimedia.org/wikipedia/commons/4/45/Notion_app_logo.png", link: "https://www.notion.so" }
+        ];
+
+        // --- LANGUAGE CONTENT ---
+        const content = {
+            en: {
+                intro: "Hi guys :) My name is Jim, I’m 13 years old. These are the cool things I use every day. Click them to see more!",
+                headerHardware: "Hardware / Devices",
+                headerApps: "My Favorite Apps"
+            },
+            zh: {
+                intro: "哈囉大家 :) 我是 Jim，今年 13 歲。這些是我每天都會用到的好東西，點擊它們可以看到官方介紹喔！",
+                headerHardware: "硬體設備",
+                headerApps: "愛用的 App"
+            }
+        };
+
+        let currentLang = 'en';
+
+        // --- RENDER FUNCTIONS ---
+        function render() {
+            const hwContainer = document.getElementById('hardware-grid');
+            const appsContainer = document.getElementById('apps-grid');
+
+            // Clear first
+            hwContainer.innerHTML = '';
+            appsContainer.innerHTML = '';
+
+            // Render Hardware (Using Emojis as Cartoons)
+            hardwareData.forEach((item, index) => {
+                const link = document.createElement('a');
+                link.href = item.link;
+                link.target = "_blank"; // Open in new tab
+                link.className = 'glass-panel item-card animate-pop';
+                link.style.animationDelay = `${index * 0.05}s`;
+                
+                link.innerHTML = `
+                    <div class="link-hint">↗</div>
+                    <div class="item-emoji">${item.icon}</div>
+                    <div class="item-name">${item.name}</div>
+                `;
+                hwContainer.appendChild(link);
+            });
+
+            // Render Apps (Using Logos)
+            appsData.forEach((item, index) => {
+                const link = document.createElement('a');
+                link.href = item.link;
+                link.target = "_blank";
+                link.className = 'glass-panel item-card animate-pop';
+                link.style.animationDelay = `${index * 0.05 + 0.5}s`; // Start after hardware
+                
+                link.innerHTML = `
+                    <div class="link-hint">↗</div>
+                    <img src="${item.img}" class="app-logo" alt="${item.name}">
+                    <div class="item-name">${item.name}</div>
+                `;
+                appsContainer.appendChild(link);
+            });
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'zh' : 'en';
+            
+            const data = content[currentLang];
+            const intro = document.getElementById('intro-text');
+            
+            // Text Update
+            intro.innerText = data.intro;
+            document.getElementById('header-hardware').innerText = data.headerHardware;
+            document.getElementById('header-apps').innerText = data.headerApps;
+
+            // Re-trigger animation on intro text
+            intro.style.animation = 'none';
+            intro.offsetHeight; 
+            intro.style.animation = 'fadeInDown 0.5s ease-out';
+        }
+
+        // Init
+        window.onload = render;
+
+    </script>
+</body>
+</html>
